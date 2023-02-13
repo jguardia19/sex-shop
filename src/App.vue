@@ -1,28 +1,34 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>
+    <v-app>
+
+    <app-cart></app-cart>
+
+    <component :is="layout">
+        <router-view :layout.sync="layout"/>
+    </component>
+ 
+    </v-app>
+   </template> 
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import appCart from './components/app-cart.vue';
+const defaultLayout = 'dashboard-layout'
 export default {
+  components: { appCart },
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
+  data: () => ({
+    //
+  }),
+
+  computed: {
+        layout (){
+          return (this.$route.meta.layout || defaultLayout)  
+        }
+  }
+
+};
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
